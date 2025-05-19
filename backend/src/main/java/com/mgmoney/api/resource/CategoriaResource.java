@@ -2,6 +2,7 @@ package com.mgmoney.api.resource;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Objects;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -47,9 +48,12 @@ public class CategoriaResource {
 	}
 	
 	@GetMapping("/{codigo}")
-	public Categoria buscarPorId(@PathVariable Long codigo){
+	public ResponseEntity<Categoria> buscarPorId(@PathVariable Long codigo){
 		
-		return categoriaRepository.findOne(codigo);
+		
+		Categoria categoria = categoriaRepository.findOne(codigo);
+		
+		return categoria != null ? ResponseEntity.ok(categoria) : ResponseEntity.noContent().build();
 		
 	}
 	
